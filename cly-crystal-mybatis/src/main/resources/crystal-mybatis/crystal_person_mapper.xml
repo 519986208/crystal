@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cly.crystal.datasource.dao.PersonDao">
+	
+	<resultMap type="com.cly.crystal.share.bean.Person" id="baseResultMap" autoMapping="true"/>
+
+	<select id="findUserByName" parameterType="String" resultMap="baseResultMap">
+		select * from person where name=#{name}
+	</select>
+	
+	<select id="findAll" resultMap="baseResultMap">
+		select * from person
+	</select>
+
+</mapper>
