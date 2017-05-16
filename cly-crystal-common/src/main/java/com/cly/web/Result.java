@@ -11,7 +11,7 @@ public class Result {
     /**
      * 描述代码
      */
-    private int    code;
+    private int    code = 200;
 
     /**
      * 描述信息

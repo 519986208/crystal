@@ -14,4 +14,6 @@ public interface PersonDao {
 
     List<Person> findAll();
 
+    List<Person> findUserPage();
+
 }
