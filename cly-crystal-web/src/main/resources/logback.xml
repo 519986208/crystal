@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 只需配置好 projectname 属性 -->
+<configuration debug="false">
+	<property name="projectname" value="crystal" />
+	<property name="log.dir" value="d://logs/" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<target>System.out</target>
+		<encoder charset="UTF-8">
+			<pattern>%d [%thread] %-5p [%c] [%F:%L] - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="infoFileAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.dir}/${projectname}.log
+		</file>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.dir}/${projectname}-%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder charset="UTF-8">
+			<pattern>%d [%thread] %-5p [%c] [%F:%L]
+				[trace=%X{X-Trace-Id:-},span=%X{X-Span-Id:-},parent=%X{X-Parent-Id:-},name=%X{X-Span-Name:-},app=%X{appname:-},begintime=%X{begintime:-},endtime=%X{fin-X1-time:-}]
+				- %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="sqlFileAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.dir}/${projectname}_sql.log
+		</file>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>DEBUG</level>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.dir}/${projectname}-%d{yyyy-MM-dd}_sql.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder charset="UTF-8">
+			<pattern>%d [%thread] %-5p [%c] [%F:%L]
+				[trace=%X{X-Trace-Id:-},span=%X{X-Span-Id:-},parent=%X{X-Parent-Id:-},name=%X{X-Span-Name:-},app=%X{appname:-},begintime=%X{begintime:-},endtime=%X{fin-X1-time:-}]
+				- %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="errorFileAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.dir}/${projectname}_error.log</file>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>WARN</level>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.dir}/${projectname}_error-%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder charset="UTF-8">
+			<pattern>%d [%thread] %-5p [%c] [%F:%L]
+				[trace=%X{X-Trace-Id:-},span=%X{X-Span-Id:-},parent=%X{X-Parent-Id:-},name=%X{X-Span-Name:-},app=%X{appname:-},begintime=%X{begintime:-},endtime=%X{fin-X1-time:-}]
+				- %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="org.apache">
+		<level value="INFO" />
+		<appender-ref ref="errorFileAppender" />
+		<appender-ref ref="infoFileAppender" />
+	</logger>
+
+	<logger name="org.springframework">
+		<level value="INFO" />
+		<appender-ref ref="errorFileAppender" />
+		<appender-ref ref="infoFileAppender" />
+	</logger>
+
+	<logger name="com.netflix">
+		<level value="INFO" />
+		<appender-ref ref="errorFileAppender" />
+		<appender-ref ref="infoFileAppender" />
+	</logger>
+
+	<!-- 记录mybatis日志 -->
+	<logger name="com.cly.crystal.datasource.dao">
+		<level value="DEBUG" />
+		<appender-ref ref="sqlFileAppender" />
+	</logger>
+
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="infoFileAppender" />
+		<appender-ref ref="errorFileAppender" />
+	</root>
+
+</configuration>

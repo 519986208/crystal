@@ -21,8 +21,9 @@
 		<module>cly-crystal-common</module>
 		<module>cly-crystal-share</module>
 		<module>cly-crystal-mybatis</module>
-		<module>cly-crystal-web</module>
 		<module>cly-crystal-module</module>
+		<module>cly-crystal-web</module>
+		<module>cly-crystal-service</module>
 	</modules>
 
 	<dependencyManagement>
